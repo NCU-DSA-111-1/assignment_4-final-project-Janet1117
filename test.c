@@ -1,21 +1,31 @@
-//#include"mode.h"
-#include"cardfunction.h"
+#include<stdio.h>
+#include<string.h>
+
+#include"mode.h"
+//#include"cardfunction.h"
+#include"stack.h"
+#include"player.h"
+//#include"setupplayer.h"
+//#include"linkedlist.h"
+//#include"player.h"
+
+int i;
+
 int main(){
     
-    int three_player_order[3] = {0, 1, 2};
-    int four_player_order[4] = {0, 1, 2, 3};
-    reverse(three_player_order, 3);
-    reverse(four_player_order, 4);
+    ThreePlayer();
 
-    int i;
-    for(i = 0; i < 3; i++){
-        printf("%d  ", three_player_order[i]);
-    }
-    printf("\n");
+    //FourPlayer();
+    
+    // SetUpDeck();
+    
+    // ShuffleDeck(stack, 108);
+    
+    // node *p = NULL;
+    
+    // ComputerDrawOne(p);
 
-    for(i = 0; i < 4; i++){
-        printf("%d  ", four_player_order[i]);
-    }
-    printf("\n");
+    
+
     return 0;
 }

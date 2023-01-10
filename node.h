@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 enum color{
     black, red, yellow, green, blue
@@ -16,6 +17,7 @@ typedef struct node_t{
     int color;
     int name;
     struct node_t *next;
+    struct node_t *prev;
 }node;
 
 
