@@ -1,4 +1,4 @@
-#include"mode.h"
+#include"../inc/mode.h"
 
 int main(){
     int ThreeOrFour;
