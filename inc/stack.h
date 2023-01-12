@@ -108,6 +108,7 @@ node pop(){
 node deal(){
     node card;
     if(empty() == 1){
+        printf("ㄨㄚˊ沒牌了怎麼辦呢\n");
         reshuffledeck();
     }
     card = pop();
@@ -116,6 +117,7 @@ node deal(){
 
 //將已出的牌留最上面那張其他free，重新設置stack、洗牌
 void reshuffledeck(){
+    printf("\n\n\n重新洗牌喔喔喔喔喔喔喔喔\n\n\n");
     while(UsedCard != NULL){
         if((UsedCard == NULL) || (UsedCard->next == NULL)){
             break;

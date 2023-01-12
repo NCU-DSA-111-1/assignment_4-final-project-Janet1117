@@ -112,27 +112,27 @@ void changewildcolor(node *input)
     {
         printf("請選擇要換的顏色:");
         scanf("%s", wildcolor);
-        if(strcmp(wildcolor,"黑") == 0)
+        if(strcmp(wildcolor,"black") == 0)
         {
             printf("牌的顏色不可為黑\n");
             continue;
         }
-        else if(strcmp(wildcolor,"紅") == 0)
+        else if(strcmp(wildcolor,"red") == 0)
         {
             input->color = red;
             break;
         }
-        else if(strcmp(wildcolor,"藍") == 0)
+        else if(strcmp(wildcolor,"blue") == 0)
         {
             input->color = blue;
             break;
         }
-        else if(strcmp(wildcolor,"綠") == 0)
+        else if(strcmp(wildcolor,"green") == 0)
         {
             input->color = green;
             break;
         }
-        else if(strcmp(wildcolor,"黃") == 0)
+        else if(strcmp(wildcolor,"yellow") == 0)
         {
             input->color = yellow;
             break;

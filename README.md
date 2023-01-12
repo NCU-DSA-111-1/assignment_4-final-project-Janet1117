@@ -2,7 +2,12 @@
 ## Compile
     make
 ## Run
-    ./bin/uno
+### 開新局
+    ./bin/uno -n -s new_game_file_name.txt
+ex. ./bin/uno -n -s game1.txt
+### 載入舊遊戲
+    ./bin/uno -l old_game_file_name.txt
+ex. ./bin/uno -l game1.txt
 ## uno規則
 uno有108張牌，共有5種顏色、15種牌
 
@@ -29,6 +34,8 @@ uno有108張牌，共有5種顏色、15種牌
 玩家只能出與 已出牌池 最上面相同顏色、或相同數字、萬用或+4
 
 沒牌可出時需抽一牌
+
+當電腦玩家出牌後手中只剩一張牌，會喊UNO
 
 獲勝條件:玩家手上牌全出玩即獲勝
 

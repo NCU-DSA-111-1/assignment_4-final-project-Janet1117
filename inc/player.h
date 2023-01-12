@@ -43,7 +43,7 @@ int four_player_order[4] = {0, 1, 2, 3};//出排順序:0代表player1,以此類�
 //真人玩家輸入
 void PlayerInput(){
     PlayerCurrentCard();
-    printf("先輸入顏色再輸入牌 ex.黃 0\n");
+    printf("先輸入顏色再輸入牌 ex.yellow 0\n");
     printf("請輸入您想出的牌，如無可出的牌請輸入pass:");
     scanf("%s", InputColor);
     if(strcmp(InputColor, pass) == 0){
@@ -55,21 +55,23 @@ void PlayerInput(){
         scanf("%s", InputName);
         input = InputToNode(InputColor, InputName);
         printf("您要出的是 ");
-        printf("\033[1;35;47m%s%s\033[m", InputColor, InputName);
+        printf("\033[1;35;47m%s %s\033[m", InputColor, InputName);
         UserInput.color = input->color;
         UserInput.name = input->name;
         printf(" 這張牌嗎?[y/n]:");
         scanf("%s", YorN);
-        cardpool = ruleandrenewpokerpile(UsedCard, input, &drawNumber, player1);
+        if(strcmp(YorN, "y") == 0){
+            cardpool = ruleandrenewpokerpile(UsedCard, input, &drawNumber, player1);
+        }
     }
-    while((UsedCard == cardpool) || (YorN[0] != 'y')){
+    while((UsedCard == cardpool) || (strcmp(YorN, "y") != 0)){
         if(strcmp(InputColor, pass) == 0){
             break;
         }
-        if((UsedCard == cardpool)){
+        if((strcmp(YorN, "n") != 0)){
             printf("\033[1;33m輸入不正確!請重新輸入!\n\033[m");
         }
-        printf("先輸入顏色再輸入牌 ex.黃 0\n");
+        printf("先輸入顏色再輸入牌 ex.yellow 0\n");
         printf("請輸入您想出的牌，如無可出的牌請輸入pass:");
         scanf("%s", InputColor);
         if(strcmp(InputColor, pass) == 0){
@@ -81,13 +83,16 @@ void PlayerInput(){
             scanf("%s", InputName);
             input = InputToNode(InputColor, InputName);
             printf("您要出的是 ");
-            printf("\033[1;35;47m%s%s\033[m", InputColor, InputName);
+            printf("\033[1;35;47m%s %s\033[m", InputColor, InputName);
             UserInput.color = input->color;
             UserInput.name = input->name;
             printf(" 這張牌嗎?[y/n]:");
             scanf("%s", YorN);
         }
-        cardpool = ruleandrenewpokerpile(UsedCard, input, &drawNumber, player1);
+        if(strcmp(YorN, "y") == 0){
+            cardpool = ruleandrenewpokerpile(UsedCard, input, &drawNumber, player1);
+        }
+        //cardpool = ruleandrenewpokerpile(UsedCard, input, &drawNumber, player1);
         
     }
 
@@ -101,15 +106,15 @@ void PlayerInput(){
 node *InputToNode(char Color[], char Name[]){
     node *card;
     card = (node *) malloc(sizeof(node));
-    if(strcmp(Color, "黑") == 0){
+    if(strcmp(Color, "black") == 0){
         card->color = black;
-    }else if(strcmp(Color, "紅") == 0){
+    }else if(strcmp(Color, "red") == 0){
         card->color = red;
-    }else if(strcmp(Color, "黃") == 0){
+    }else if(strcmp(Color, "yellow") == 0){
         card->color = yellow;
-    }else if(strcmp(Color, "綠") == 0){
+    }else if(strcmp(Color, "green") == 0){
         card->color= green;
-    }else if(strcmp(Color, "藍") == 0){
+    }else if(strcmp(Color, "blue") == 0){
         card->color = blue;
     }else{
         card->color = -1;
@@ -134,13 +139,13 @@ node *InputToNode(char Color[], char Name[]){
         card->name = eight;
     }else if(strcmp(Name, "9") == 0){
         card->name = nine;
-    }else if(strcmp(Name, "禁止") == 0){
+    }else if(strcmp(Name, "skip") == 0){
         card->name = skip;
-    }else if(strcmp(Name, "迴轉") == 0){
+    }else if(strcmp(Name, "reverse") == 0){
         card->name = reverse;
     }else if(strcmp(Name, "+2") == 0){
         card->name = drawtwo;
-    }else if(strcmp(Name, "萬用") == 0){
+    }else if(strcmp(Name, "wild") == 0){
         card->name = wild;
     }else if(strcmp(Name, "+4") == 0){
         card->name = wild_draw_four;
@@ -157,13 +162,13 @@ void PrintCard(node *tmp){
             for(i = 0; i < 15; i++){
                 if(tmp->name == i){
                     if(i == skip){
-                        printf("%s", b(禁止));
+                        printf("%s", b(skip));
                     }else if(i == reverse){
-                        printf("%s", b(迴轉));
+                        printf("%s", b(reverse));
                     }else if(i == drawtwo){
                         printf("%s", b(+2));
                     }else if(i == wild){
-                        printf("%s", b(萬用));
+                        printf("%s", b(wild));
                     }else if(i == wild_draw_four){
                         printf("%s", b(+4));
                     }else{
@@ -175,13 +180,13 @@ void PrintCard(node *tmp){
             for(i = 0; i < 15; i++){
                 if(tmp->name == i){
                     if(i == skip){
-                        printf("%s", R(禁止));
+                        printf("%s", R(skip));
                     }else if(i == reverse){
-                        printf("%s", R(迴轉));
+                        printf("%s", R(reverse));
                     }else if(i == drawtwo){
                         printf("%s", R(+2));
                     }else if(i == wild){
-                        printf("%s", R(萬用));
+                        printf("%s", R(wild));
                     }else if(i == wild_draw_four){
                         printf("%s", R(+4));
                     }else{
@@ -193,13 +198,13 @@ void PrintCard(node *tmp){
             for(i = 0; i < 15; i++){
                 if(tmp->name == i){
                     if(i == skip){
-                        printf("%s", Y(禁止));
+                        printf("%s", Y(skip));
                     }else if(i == reverse){
-                        printf("%s", Y(迴轉));
+                        printf("%s", Y(reverse));
                     }else if(i == drawtwo){
                         printf("%s", Y(+2));
                     }else if(i == wild){
-                        printf("%s", Y(萬用));
+                        printf("%s", Y(wild));
                     }else if(i == wild_draw_four){
                         printf("%s", Y(+4));
                     }else{
@@ -211,13 +216,13 @@ void PrintCard(node *tmp){
             for(i = 0; i < 15; i++){
                 if(tmp->name == i){
                     if(i == skip){
-                        printf("%s", G(禁止));
+                        printf("%s", G(skip));
                     }else if(i == reverse){
-                        printf("%s", G(迴轉));
+                        printf("%s", G(reverse));
                     }else if(i == drawtwo){
                         printf("%s", G(+2));
                     }else if(i == wild){
-                        printf("%s", G(萬用));
+                        printf("%s", G(wild));
                     }else if(i == wild_draw_four){
                         printf("%s", G(+4));
                     }else{
@@ -229,13 +234,13 @@ void PrintCard(node *tmp){
             for(i = 0; i < 15; i++){
                 if(tmp->name == i){
                     if(i == skip){
-                        printf("%s", B(禁止));
+                        printf("%s", B(skip));
                     }else if(i == reverse){
-                        printf("%s", B(迴轉));
+                        printf("%s", B(reverse));
                     }else if(i == drawtwo){
                         printf("%s", B(+2));
                     }else if(i == wild){
-                        printf("%s", B(萬用));
+                        printf("%s", B(wild));
                     }else if(i == wild_draw_four){
                         printf("%s", B(+4));
                     }else{

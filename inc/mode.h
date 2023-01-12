@@ -25,6 +25,8 @@ void GameOver(int PlayerAmount);//遊戲是否結束1:是
 
 void ComputerCurrentCard(node *player);//印出電腦玩家的牌
 
+void PrintUno(node *player);//剩下一張牌時電腦玩家喊uno
+
 
 int i, j;
 int WhoWin = -1;//誰獲勝 -1:遊戲繼續
@@ -46,8 +48,8 @@ void ThreePlayer(){
     printf("%s、",Y(黃));
     printf("%s和",G(綠));
     printf("%s",B(藍));
-    printf("色分別有 0~9、禁止、迴轉和+2牌\n黑色有 萬用和+4");
-    printf("\n\n以下特殊牌介紹:\n禁止:禁止下一位玩家出牌\n迴轉:反轉出排順序\n +2 :下一位玩家罰抽兩張牌\n萬用:將顏色改為");
+    printf("色分別有 0~9、skip、reverse和+2\n黑色有 wild和+4");
+    printf("\n\n以下特殊牌介紹:\nskip:禁止下一位玩家出牌\nreverse:反轉出排順序\n +2 :下一位玩家罰抽兩張牌\nwild:將顏色改為");
     printf("%s、",R(紅));
     printf("%s、",Y(黃));
     printf("%s或",G(綠));
@@ -58,11 +60,11 @@ void ThreePlayer(){
     printf("%s或",G(綠));
     printf("%s",B(藍));
     printf("色，顏色由玩家自定");
-    printf("\n\n以下為規則介紹:\n每位玩家開局一人隨機獲得七張牌\n玩家只能出與 已出牌池 最上面相同顏色、相同數字、萬用或+4\n沒牌可出時需抽一牌\n獲勝條件:玩家手上牌全出玩即獲勝\n\n");
-    printf("\n以下出牌範例:\n以 %s 為例:請輸入:黃 0\n以 %s 為例:請輸入:黑 萬用，選擇要換的顏色:若想將顏色換成黃色，請輸入黃\n\n", Y(0), W(萬用));
+    printf("\n\n以下為規則介紹:\n每位玩家開局一人隨機獲得七張牌\n玩家只能出與 已出牌池 最上面相同顏色、相同數字、萬用或+4\n沒牌可出時需抽一牌\n當電腦玩家出牌後手中只剩一張牌，會喊UNO\n獲勝條件:玩家手上牌全出玩即獲勝\n\n");
+    printf("\n以下出牌範例:\n以 %s 為例:請輸入:yellow 0\n以 %s 為例:請輸入:black wild，選擇要換的顏色:若想將顏色換成黃色，請輸入:yellow\n\n", Y(0), W(wild));
     printf("%s",Y(規則閱讀完畢，是否開始遊戲?[y/n]:));
     scanf("%s", YorN);
-    while (YorN[0] != 'y'){
+    while (strcmp(YorN, "y") != 0){
         printf("%s",Y(規則閱讀完畢，是否開始遊戲?[y/n]:));
         scanf("%s", YorN);
     }
@@ -133,6 +135,9 @@ void ThreePlayer(){
             }
             UsedCard = cardpool;
             SpecialCardFunction(drawNumber, three_player_order, &order, PlayerNumber);
+            if(player2 != NULL){
+                PrintUno(player2);
+            }
             //迴轉
             if(drawNumber == 6){
                 if(RevserseOrNot == 0){
@@ -141,6 +146,7 @@ void ThreePlayer(){
                     RevserseOrNot = 0;
                 }
             }
+            
         }
         
         //玩家3出牌
@@ -155,6 +161,10 @@ void ThreePlayer(){
             }
             UsedCard = cardpool;
             SpecialCardFunction(drawNumber, three_player_order, &order, PlayerNumber);
+            
+            if(player3 != NULL){
+                PrintUno(player3);
+            }
             //迴轉
             if(drawNumber == 6){
                 if(RevserseOrNot == 0){
@@ -171,7 +181,7 @@ void ThreePlayer(){
 
         sleep(1);
         if((count == player_amount - 1) && (WhoWin == -1)){
-            sleep(1);
+            //sleep(1);
             system("clear");
         }
 
@@ -215,8 +225,8 @@ void FourPlayer(){
     printf("%s、",Y(黃));
     printf("%s和",G(綠));
     printf("%s",B(藍));
-    printf("色分別有 0~9、禁止、迴轉和+2牌\n黑色有 萬用和+4");
-    printf("\n\n以下特殊牌介紹:\n禁止:禁止下一位玩家出牌\n迴轉:反轉出排順序\n +2 :下一位玩家罰抽兩張牌\n萬用:將顏色改為");
+    printf("色分別有 0~9、skip、reverse和+2\n黑色有 wild和+4");
+    printf("\n\n以下特殊牌介紹:\nskip:禁止下一位玩家出牌\nreverse:反轉出排順序\n +2 :下一位玩家罰抽兩張牌\nwild:將顏色改為");
     printf("%s、",R(紅));
     printf("%s、",Y(黃));
     printf("%s或",G(綠));
@@ -227,11 +237,11 @@ void FourPlayer(){
     printf("%s或",G(綠));
     printf("%s",B(藍));
     printf("色，顏色由玩家自定");
-    printf("\n\n以下為規則介紹:\n每位玩家開局一人隨機獲得七張牌\n玩家只能出與 已出牌池 最上面相同顏色、相同數字、萬用或+4\n沒牌可出時需抽一牌\n獲勝條件:玩家手上牌全出玩即獲勝\n\n");
-    printf("\n以下出牌範例:\n以 %s 為例:請輸入:黃 0\n以 %s 為例:請輸入:黑 萬用，選擇要換的顏色:若想將顏色換成黃色，請輸入黃\n\n", Y(0), W(萬用));
+    printf("\n\n以下為規則介紹:\n每位玩家開局一人隨機獲得七張牌\n玩家只能出與 已出牌池 最上面相同顏色、相同數字、萬用或+4\n沒牌可出時需抽一牌\n當電腦玩家出牌後手中只剩一張牌，會喊UNO\n獲勝條件:玩家手上牌全出玩即獲勝\n\n");
+    printf("\n以下出牌範例:\n以 %s 為例:請輸入:yellow 0\n以 %s 為例:請輸入:black wild，選擇要換的顏色:若想將顏色換成黃色，請輸入:yellow\n\n", Y(0), W(wild));
     printf("%s",Y(規則閱讀完畢，是否開始遊戲?[y/n]:));
     scanf("%s", YorN);
-    while (YorN[0] != 'y'){
+    while (strcmp(YorN, "y") != 0){
         printf("%s",Y(規則閱讀完畢，是否開始遊戲?[y/n]:));
         scanf("%s", YorN);
     }
@@ -304,6 +314,9 @@ void FourPlayer(){
             }
             UsedCard = cardpool;
             SpecialCardFunction(drawNumber, four_player_order, &order, PlayerNumber);
+            if(player2 != NULL){
+                PrintUno(player2);
+            }
             //迴轉
             if(drawNumber == 6){
                 if(RevserseOrNot == 0){
@@ -326,6 +339,9 @@ void FourPlayer(){
             }
             UsedCard = cardpool;
             SpecialCardFunction(drawNumber, four_player_order, &order, PlayerNumber);
+            if(player3 != NULL){
+                PrintUno(player3);
+            }
             //迴轉
             if(drawNumber == 6){
                 if(RevserseOrNot == 0){
@@ -348,6 +364,9 @@ void FourPlayer(){
             }
             UsedCard = cardpool;
             SpecialCardFunction(drawNumber, four_player_order, &order, PlayerNumber);
+            if(player4 != NULL){
+                PrintUno(player4);
+            }
             //迴轉
             if(drawNumber == 6){
                 if(RevserseOrNot == 0){
@@ -363,7 +382,7 @@ void FourPlayer(){
 
         sleep(1);
         if((count == player_amount - 1) && (WhoWin == -1)){
-            sleep(1);
+            //sleep(1);
             system("clear");
         }
 
@@ -459,6 +478,23 @@ void ComputerCurrentCard(node *player){
         tmp = tmp->next;
     }
     printf("\n");
+}
+
+void PrintUno(node *player){
+    node *p;
+    p = player;
+    if(p->next == NULL){
+        if(p == player2){
+            printf("%s喊了 %s !\n", P(玩家2), R(UNO));
+            sleep(1);
+        }else if(p == player3){
+            printf("%s喊了 %s !\n", D(玩家3), R(UNO));
+            sleep(1);
+        }else if(p == player4){
+            printf("%s喊了 %s !\n", W(玩家4), R(UNO));
+            sleep(1);
+        }
+    }
 }
 
 #endif
