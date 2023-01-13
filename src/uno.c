@@ -21,7 +21,7 @@
 FILE *fptr;
 //開新局為0,載入歷史紀錄為1  
 //int NeworOld;
-int ThreeOrFour;//3人或4人
+
 
 //store
 int players;
@@ -32,27 +32,7 @@ extern int RealPlayer[14];
 extern Record *head;
 extern Record *current;
 
-node *botton;//底牌
-Record *playerMovement = NULL;
-// node *RealplayerInitialCard = NULL;//真人玩家初始牌
-int moveAmount = 0;
-int totalmove = 0;
-
 char *filename;//檔名
-
-int ID;
-
-Record *tmpnext = NULL;
-Record *fbtmp;
-void FOrB();//上一步下一步
-char fb[20];
-int end = 0;//1:離開
-
-
-
-
-
-
 
 int main(int argc, char **argv) {
     
@@ -99,7 +79,7 @@ int main(int argc, char **argv) {
 					while (head != NULL)
 					{
 						fprintf(fptr,"%d %d %d %d\n", head->order, head->IFpass, head->card->color, head->card->name);
-						//printf("%d %d %d %d\n", head->order, head->IFpass, head->card->color, head->card->name);
+						printf("%d %d %d %d\n", head->order, head->IFpass, head->card->color, head->card->name);
 						head = head->next;
 					}
                 }
@@ -126,13 +106,13 @@ int main(int argc, char **argv) {
 				char color[50], name[50];
 				fseek(fptr, SEEK_SET, 0);
 				printf("載入紀錄\n");
-				printf("載入\033[1;37m %s \033[m紀錄\n", filename);
+				//printf("載入\033[1;37m %s \033[m紀錄\n", filename);
 				fscanf(fptr,"%s\n", data);
 				if(atoi(data)== 3){
-					printf("此局是三人局\n");
+					printf("三人局\n");
 				}
 				else if(data[0] == '4'){
-					printf("此局是四人局\n");
+					printf("四人局\n");
 				}
 				fscanf(fptr,"%s %s\n",color, name);
 				node tmp;
@@ -261,7 +241,6 @@ int main(int argc, char **argv) {
 							printf("\n");
 						}
 					}
-					sleep(1);
 				}
 				printf("遊戲結束！\n");
             }

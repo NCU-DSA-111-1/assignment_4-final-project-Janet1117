@@ -61,7 +61,8 @@ node *DrawOne(node *player){
 
 //+2
 void DrawTwo(int *playerOrder, int *orderNumber, int playerAmount){
-    int next = *orderNumber;
+    int i;
+    int next = *orderNumber;//判斷下一個是誰
     if(RevserseOrNot % 2 == 0){
         next = (next == playerAmount - 1) ? 0 : (next + 1);
     }else{
@@ -70,7 +71,8 @@ void DrawTwo(int *playerOrder, int *orderNumber, int playerAmount){
     if(playerOrder[next] == 0){
         for(i = 0; i < 2; i++){
             player1 = DrawOne(player1);
-        }
+            StoreAct(1, player1->next, 2);//store
+        }//player1
     }else if(playerOrder[next] == 1){
         for(i = 0; i < 2; i++){
             player2 = DrawOne(player2);
@@ -88,6 +90,7 @@ void DrawTwo(int *playerOrder, int *orderNumber, int playerAmount){
 
 //+4
 void DrawFour(int *playerOrder, int *orderNumber, int playerAmount){
+    int i;
     int next = *orderNumber;
     if(RevserseOrNot % 2 == 0){
         next = (next == playerAmount - 1) ? 0 : (next + 1);
@@ -97,6 +100,7 @@ void DrawFour(int *playerOrder, int *orderNumber, int playerAmount){
     if(playerOrder[next] == 0){
         for(i = 0; i < 4; i++){
             player1 = DrawOne(player1);
+            StoreAct(1, player1->next, 2);//store
         }
     }else if(playerOrder[next] == 1){
         for(i = 0; i < 4; i++){
